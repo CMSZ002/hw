@@ -14,12 +14,12 @@ jobs:
 
     - name: Set up Git user
       run: |
-        git config --global user.email "${{ EMAIL}}"
-        git config --global user.name "${{ NAME }}"
+        git config --global user.email "2706210065@qq.com"
+        git config --global user.name "CMSZ001"
 
     - name: Push to Gitee
       env:
-        GITEE_REPO: your_gitee_username/your_repo.git
+        GITEE_REPO: CMSZ001/cmsz002.github.io.git
         GITEE_TOKEN: ${{ GITEE_TOKEN }}
       run: |
         git remote add gitee ${GITEE_REPO}
