@@ -16,5 +16,4 @@ jobs:
         git clone https://gitee.com/CMSZ001/cmsz002.github.io.git
         cd cmsz002.github.io
         rm -r docs LICENSE
-        cd cmsz002.github.io
         ls
