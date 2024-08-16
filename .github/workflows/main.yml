@@ -2,7 +2,8 @@ name: learn
 on: push
 
 job:
-  runs-on: ubuntu-lates
-  steps:
-  - run: pwd
-  - run: ls
+  build:
+    runs-on: ubuntu-lates
+    steps:
+    - run: pwd
+    - run: ls
