@@ -12,4 +12,5 @@ jobs:
     - name: 下载源文件
       run: |
         wget https://github.com/CMSZ002/cmsz002.github.io/archive/refs/heads/main.zip
+        unzip main.zip
         ls
