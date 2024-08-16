@@ -8,5 +8,5 @@ jobs:
     - name: 初始化
       uses: actions/checkout@v4
     - name: 查看
-      run: ls
+      run: ls -a
         
