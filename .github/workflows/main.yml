@@ -1,7 +1,7 @@
 name: learn
 on: push
 
-job:
+jobs:
   runs-on: ubuntu-latest
   steps:
   - run: pwd
