@@ -4,7 +4,6 @@ on: push
 job:
   runs-on: ubuntu-latest
   steps:
-  - run: |
-    pwd
-    ls
+  - run: pwd
+  - run: ls
 
