@@ -19,9 +19,8 @@ jobs:
 
     - name: Push to Gitee
       env:
-        GITEE_REPO: CMSZ001/cmsz002.github.io.git
         GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
       run: |
         git remote remove origin
         git remote add origin https://gitee.com/CMSZ001/cmsz002.github.io.git
-        git push origin HEAD:main --force
+        git push origin main
