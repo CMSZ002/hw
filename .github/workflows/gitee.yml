@@ -12,8 +12,10 @@ jobs:
     - name: 下载源文件
       run: |
         wget https://github.com/CMSZ002/cmsz002.github.io/archive/refs/heads/main.zip
+        unzip main.zip
         git clone https://gitee.com/CMSZ001/cmsz002.github.io.git
         cd cmsz002.github.io
         rm -r docs LICENSE
-        unzip /home/runner/work/cmsz002.github.io/cmsz002.github.io/main.zip
+        cd cmsz002.github.io-main
+        cp -r . /home/runner/work/cmsz002.github.io/cmsz002.github.io/cmsz002.github.io/
         ls
