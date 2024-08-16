@@ -24,4 +24,4 @@ jobs:
       run: |
         git remote remove origin
         git remote add origin https://gitee.com/CMSZ001/cmsz002.github.io.git
-        git push gitee HEAD:main --force
+        git push origin HEAD:main --force
