@@ -1,2 +1,26 @@
 name: 推送至gitee仓库
-on: push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Set up Git user
+      run: |
+        git config --global user.email "${{ EMAIL}}"
+        git config --global user.name "${{ NAME }}"
+
+    - name: Push to Gitee
+      env:
+        GITEE_REPO: your_gitee_username/your_repo.git
+        GITEE_TOKEN: ${{ GITEE_TOKEN }}
+      run: |
+        git remote add gitee ${GITEE_REPO}
+        git push gitee HEAD:main --force
