@@ -11,6 +11,7 @@ jobs:
     steps:
     - name: 下载源文件
       run: |
+        pwd
         wget https://github.com/CMSZ002/cmsz002.github.io/archive/refs/heads/main.zip
         unzip main.zip
         git clone https://gitee.com/CMSZ001/cmsz002.github.io.git
