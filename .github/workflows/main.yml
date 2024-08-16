@@ -1,7 +1,7 @@
 name: learn
 on: push
 
-job:
+jobs:
   build:
     runs-on: ubuntu-lates
     steps:
