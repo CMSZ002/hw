@@ -1,0 +1,26 @@
+name: Mirror to Gitee
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Set up Git user
+      run: |
+        git config --global user.email "2706210065@qq.com"
+        git config --global user.name "CMSZ001"
+
+    - name: Push to Gitee
+      env:
+        GITEE_REPO: https://gitee.com/CMSZ001/cmsz002.github.io.git
+        GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+      run: |
+        git remote add gitee ${GITEE_REPO}
+        git push gitee HEAD:main --force
