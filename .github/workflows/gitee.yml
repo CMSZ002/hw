@@ -23,6 +23,7 @@ jobs:
 
     - name: 推送至gitee
       run: |
+        pwd
         git config --global user.name "CMSZ001"
         git config --global user.email "2706210065@qq.com"
         git remote set-url --push origin https://username:${{ secrets.GITEE_TOKEN }}@gitee.com/CMSZ001/cmsz002.github.io.git
