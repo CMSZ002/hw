@@ -1,0 +1,2 @@
+name: 推送至gitee仓库
+on: push
