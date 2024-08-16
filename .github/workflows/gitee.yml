@@ -9,7 +9,7 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-    - name: 下载源文件
+    - name: 配置git仓库
       run: |
         wget https://github.com/CMSZ002/cmsz002.github.io/archive/refs/heads/main.zip
         unzip main.zip
@@ -20,4 +20,13 @@ jobs:
         cd cmsz002.github.io-main
         cp -r . /home/runner/work/cmsz002.github.io/cmsz002.github.io/cmsz002.github.io/
         cd /home/runner/work/cmsz002.github.io/cmsz002.github.io/cmsz002.github.io
-        ls
+
+    - name: 推送至gitee
+      run: |
+        git config --global user.name "CMSZ001"
+        git config --global user.email "2706210065@qq.com"
+      env:
+        GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+      run: |
+        git push origin HEAD:main --force
+        
