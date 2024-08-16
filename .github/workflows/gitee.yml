@@ -9,18 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v4
-
-    - name: Set up Git user
+    - name: 下载源文件
       run: |
-        git config --global user.email "2706210065@qq.com"
-        git config --global user.name "CMSZ001"
-
-    - name: Push to Gitee
-      env:
-        GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
-      run: |
-        git remote remove origin
-        git remote add origin https://gitee.com/CMSZ001/cmsz002.github.io.git
-        git push origin main
+        wget https://github.com/CMSZ002/cmsz002.github.io/archive/refs/heads/main.zip
+        ls
