@@ -1,2 +1,2 @@
-# 作业 |Docsify #
+# 作业 | Docsify #
 -----
