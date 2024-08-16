@@ -26,7 +26,8 @@ jobs:
         git config --global user.name "CMSZ001"
         git config --global user.email "2706210065@qq.com"
       env:
-        GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+        GITEE_REPO: https://username:${{ secrets.GITEE_TOKEN }}@gitee.com/CMSZ001/cmsz002.github.io.git
       run: |
+        git remote set-url --push origin ${GITEE_REPO}
         git push origin HEAD:main --force
         
