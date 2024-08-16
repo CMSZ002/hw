@@ -2,7 +2,7 @@ name: learn
 on: push
 
 jobs:
-  runs-on: ubuntu-latest
+  run-on: ubuntu-latest
   steps:
   - run: pwd
   - run: ls
