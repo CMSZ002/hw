@@ -18,4 +18,6 @@ jobs:
         rm -r docs LICENSE
         cd /home/runner/work/cmsz002.github.io/cmsz002.github.io
         cd cmsz002.github.io-main
-        cp -r . /home/runner/work/cmsz002.github.io/cmsz002.github.io/cmsz001
+        cp -r . /home/runner/work/cmsz002.github.io/cmsz002.github.io/cmsz002.github.io/
+        cd cmsz002.github.io
+        ls
