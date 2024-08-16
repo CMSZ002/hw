@@ -15,6 +15,4 @@ jobs:
         unzip main.zip
         rm main.zip
         git clone https://gitee.com/CMSZ001/cmsz002.github.io.git
-        cd cmsz002.github.io-main
-        cp -r . cmsz002.github.io
         pwd
