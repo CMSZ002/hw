@@ -1,3 +1,4 @@
 # 作业 | Docsify #
+!> 本仓库使用[MIT License](https://mit-license.org/)
 -----
-[filename](../_media/example.mp3 ':audio')
+
