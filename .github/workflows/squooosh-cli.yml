@@ -25,4 +25,5 @@ jobs:
     - name: 开始压缩图片
       run: |
         cd docs
+        cd _image
         ls
