@@ -1,16 +1,20 @@
 name: 图片压缩
-on: push
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        submodules: recursive
-          
-    - name: Use Node.js 20
+    - name: 使用checkout
+      uses: actions/checkout@v4
+      
+    - name: 使用 Node.js 20
       uses: actions/setup-node@v4
       with:
         node-version: "20"
