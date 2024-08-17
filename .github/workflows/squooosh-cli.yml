@@ -24,5 +24,4 @@ jobs:
 
     - name: 开始压缩图片
       run: |
-        cd /cmsz001.github.io/docs/_image/
-        squoosh-cli --mozjpeg auto ./
+        ls
