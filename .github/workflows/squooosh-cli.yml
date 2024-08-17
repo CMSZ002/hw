@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: 使用checkout
       uses: actions/checkout@v4
-      
+
     - name: 使用 Node.js 20
       uses: actions/setup-node@v4
       with:
@@ -25,6 +25,6 @@ jobs:
     - name: 开始压缩图片
       run: |
         cd docs
-        cd _image
+        cd _images
         squoosh-cli --mozjpeg auto ./
         ls
