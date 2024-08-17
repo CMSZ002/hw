@@ -26,6 +26,6 @@ jobs:
       run: |
         cd docs
         cd _images
-        squoosh-cli --mozjpeg auto ./
+        squoosh-cli
         ls
         
