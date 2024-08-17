@@ -1,24 +1,24 @@
 name: 图片压缩
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          submodules: recursive
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        submodules: recursive
           
-      - name: Use Node.js 20
-        uses: actions/setup-node@v4
-        with:
-          # Examples: 20, 18.19, >=16.20.2, lts/Iron, lts/Hydrogen, *, latest, current, node
-          # Ref: https://github.com/actions/setup-node#supported-version-syntax
-          node-version: "20"
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
 
-      - name: 安装squoosh-cli
-        run: npm install -g @squoosh/cli
+    - name: 安装squoosh-cli
+      run: npm install -g @squoosh/cli
 
-      - name: 开始压缩图片
-        run: |
-          cd /docs/_image/
-          squoosh-cli --mozjpeg auto ./
+    - name: 开始压缩图片
+      run: |
+        cd /docs/_image/
+        squoosh-cli --mozjpeg auto ./
