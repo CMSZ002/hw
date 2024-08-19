@@ -1,6 +1,5 @@
-# <i class="fa-solid fa-book"></i>作业 | Docsify #
+# 作业 | Docsify #
 > 本仓库使用[MIT License](https://raw.githubusercontent.com/CMSZ002/hw/main/LICENSE)
+> 由[Docsify](https://docsify.js.org/)强力驱动
 -----
-## 第1周周末作业 ##
-[1](../hw/example.md ':include :type=markdown')
-*****
+
