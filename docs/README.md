@@ -4,6 +4,6 @@
 -----
 # 第一周周末作业 #
 -----
-[hw](../hw/1.md' :include :type=markdown')
+[hw](../hw/1.md ':include :type=markdown')
 
 -----
