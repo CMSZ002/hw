@@ -3,7 +3,7 @@
 > 由[Docsify](https://docsify.js.org/)强力驱动
 -----
 # 笫二周周末作业 #
-[hw](../hw/2.md ':include :markdown')
+[hw](../hw/2.md ':include :type:markdown')
 
 -----
 # 第一周周末作业 #
