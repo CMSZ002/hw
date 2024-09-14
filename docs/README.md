@@ -8,4 +8,4 @@
 
 -----
 # 笫二周周末作业 #
-[hw](../hw/2.md ':include :type=markdown')
+[hw](../hw/2.md ':include :markdown')
