@@ -3,6 +3,8 @@
 > 本仓库使用[MIT License](https://raw.githubusercontent.com/CMSZ002/hw/main/LICENSE)  
 > 由[Docsify](https://docsify.js.org/)强力驱动
 -----
+> ** 单击图片可放大 **
+-----
 # 中秋作业 #
 [hw](../hw/2.md ':include :type:markdown')
 
