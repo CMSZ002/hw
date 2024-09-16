@@ -4,11 +4,11 @@
 > 由[Docsify](https://docsify.js.org/)强力驱动
 -----
 # 中秋作业 #
-[hw](../docs/hw/2.md ':include :type:markdown')
+[hw](../hw/2.md ':include :type:markdown')
 
 -----
 # 第一周周末作业 #
 -----
-[hw](../docs/hw/1.md ':include :type=markdown')
+[hw](../hw/1.md ':include :type=markdown')
 
 -----
