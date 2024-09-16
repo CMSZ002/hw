@@ -3,7 +3,7 @@
 -----
 > **单击图片可放大**
 
-> 本仓库使用[MIT License](https://raw.githubusercontent.com/CMSZ002/hw/main/LICENSE)  
+> **©2024-2024 By CMSZ**  
 > 由[Docsify](https://docsify.js.org/)强力驱动
 -----
 # 中秋作业 #
@@ -12,6 +12,3 @@
 # 第一周周末作业 #
 -----
 [hw](../hw/1.md ':include :type=markdown')
-
-**©2024-2024 By CMSZ**  
-**由Docsify强力驱动**
