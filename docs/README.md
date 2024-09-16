@@ -1,7 +1,6 @@
 <h1> 作业 | Docsify </h1>
 
-> **单击图片可放大**
------
+> **单击图片可放大**  
 > 本仓库使用[MIT License](https://raw.githubusercontent.com/CMSZ002/hw/main/LICENSE)  
 > 由[Docsify](https://docsify.js.org/)强力驱动
 -----
