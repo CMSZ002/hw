@@ -2,7 +2,7 @@
 ## 文件 ##
 * 图片
 ```html
-<a href="../url" target="_blank"><img src="../url" alt="图片描述"></a>
+![filename](url)
 ```
 * 音频
 ```markdown
