@@ -8,10 +8,10 @@
 -----
 # 第三周周末作业 #
 -----
-[hw](../hw/3.md ':include :type=markdown')
+[hw](../hw/3.md ':include')
 # 中秋作业 #
 -----
-[hw](../hw/2.md ':include :type=markdown')
+[hw](../hw/2.md ':include')
 # 第一周周末作业 #
 -----
-[hw](../hw/1.md ':include :type=markdown')
+[hw](../hw/1.md ':include')
