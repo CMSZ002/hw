@@ -1,1 +1,1 @@
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/CMSZ002/hw/:workflow)
+![GitHub License](https://img.shields.io/github/license/CMSZ002/hw)
