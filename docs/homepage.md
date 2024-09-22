@@ -1,8 +1,8 @@
 <h1> 作业 | Docsify </h1>
 
 -----
-![GitHub License](https://img.shields.io/github/license/CMSZ002/hw ":no-zoom")
-> **单击图片可放大**
+
+!> **单击图片可放大**
 
 > **©2024-2024 By CMSZ**  
 > 由[Docsify](https://docsify.js.org/)强力驱动
