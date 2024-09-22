@@ -4,7 +4,10 @@
   </a>
 </p>
 
-# 作业 | Docsify #
+<p align="center">
+  作业 | Docsify
+</p>
+
 :octocat:  
 [![GitHub License](https://img.shields.io/github/license/CMSZ002/hw)](https://raw.githubusercontent.com/CMSZ002/hw/refs/heads/main/LICENSE)  
 ![GitHub repo size](https://img.shields.io/github/repo-size/CMSZ002/hw)  
