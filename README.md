@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  作业 | Docsify
+  <a href="https://hw.cmsz.us.kg">作业 | Docsify</a>
 </p>
 
 :octocat:  
