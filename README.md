@@ -1,6 +1,9 @@
 <p align="center">
-  <img src="http://docsify.js.org/image.png" />
+  <a href="https://docsify.js.org">
+    <img alt="docsify" src="https://docsify.js.org/_media/icon.svg">
+  </a>
 </p>
+
 # 作业 | Docsify #
 :octocat:  
 [![GitHub License](https://img.shields.io/github/license/CMSZ002/hw)](https://raw.githubusercontent.com/CMSZ002/hw/refs/heads/main/LICENSE)  
