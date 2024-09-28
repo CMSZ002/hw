@@ -2,8 +2,7 @@
 
 -----
 > **©2024-2024 By CMSZ**  
-> **由[![docsify](https://img.shields.io/github/v/tag/docsifyjs/docsify?label=docsify
-)](https://docsify.js.org/)强力驱动**
+> **由[![docsify](https://docsify.js.org/_media/favicon.ico)](https://docsify.js.org/)强力驱动**
 
 !> **单击图片可放大**
 
