@@ -1,7 +1,7 @@
-<h1> 作业 | Docsify </h1>
+﻿<h1> 作业 | Docsify </h1>
 
 -----
-> **©2024-2024 By CMSZ**  
+> **©2024 By CMSZ**  
 > **由[![logo](https://docsify.js.org/_media/icon.svg ':size=5%')Docsify](https://docsify.js.org/)强力驱动**
 
 !> **单击图片可放大**
