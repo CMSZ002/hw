@@ -2,7 +2,7 @@
 
 -----
 > **©2024 By CMSZ**  
-> **由[![logo](https://docsify.js.org/_media/favicon.ico ':size=5%')Docsify](https://docsify.js.org/)强力驱动**
+> **由[Docsify](https://docsify.js.org/)强力驱动**
 
 !> **单击图片可放大**
 
