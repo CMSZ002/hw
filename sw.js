@@ -1,4 +1,4 @@
-/* ===========================================================
+﻿/* ===========================================================
  * docsify sw.js
  * ===========================================================
  * Copyright 2016 @huxpro
@@ -11,7 +11,8 @@ const HOSTNAME_WHITELIST = [
   self.location.hostname,
   'fonts.gstatic.com',
   'fonts.googleapis.com',
-  'cdn.jsdelivr.net'
+  'cdn.jsdelivr.net',
+  'unpkg.com'
 ]
 
 // The Util Function to hack URLs of intercepted requests
