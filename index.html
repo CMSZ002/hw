@@ -16,15 +16,17 @@
 				homepage: 'main.md',
 				repo: 'CMSZ002/hw',
 				name: '作业 | Docsify',
+				busuanzi: true,
 			};
 		</script>
-	<script>
-  if (typeof navigator.serviceWorker !== 'undefined') {
-    navigator.serviceWorker.register('sw.js')
-  }
-	</script>
 		<script src="https://unpkg.com/docsify@4.13.1/lib/docsify.js"></script>
 		<script src="https://unpkg.com/docsify@4.13.1/lib/plugins/emoji.js"></script>
 		<script src="https://unpkg.com/docsify@4.13.1/lib/plugins/zoom-image.js"></script>
+		<script src="https://unpkg.com/docsify-busuanzi@1.0.1/dist/docsify-busuanzi.js"></script>
+		<script>
+			if (typeof navigator.serviceWorker !== 'undefined') {
+				navigator.serviceWorker.register('sw.js')
+				}
+		</script>
 	</body>
 </html>
