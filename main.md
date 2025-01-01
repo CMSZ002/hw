@@ -1,11 +1,8 @@
 ﻿<h1> 作业 | Docsify </h1>
 
 -----
-> **©2024 By CMSZ**  
+> **©2025 By CMSZ**  
 > **由[Docsify](https://docsify.js.org/)强力驱动**
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 
 !> **单击图片可放大**
 
