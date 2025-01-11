@@ -3,7 +3,7 @@
 -----
 > **©2025 By CMSZ**  
 > **由[Docsify](https://docsify.js.org/)强力驱动**  
-> [**网站访问统计**](https://umami.acmsz.top/share/HOh81m0xJp3gaDeu/hw.acmsz.us.kg)
+> [**网站访问统计**](https://umami.acmsz.top/share/ujwRB7ggcm8Ekj7V/hw.acmsz.us.kg)
 
 !> **单击图片可放大**
 
