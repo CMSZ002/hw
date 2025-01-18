@@ -3,20 +3,21 @@ on:
   push:
     branches:
       - main
-
-jobs: 
+      
+jobs:
   mirror-to-gitee:
     name: 同步到 Gitee
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror the Github organization repos to Gitee.
-      uses: Yikun/hub-mirror-action@master
-      with:
-        src: github/CMSZ002
-        dst: gitee/CMSZ001
-        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-        dst_token: ${{ secrets.GITEE_TOKEN }}
-        account_type: user
-        clone_style: ssh
-        static_list: "hw"
-        force_update: true
+      - name: Mirror repo to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: github/CMSZ002
+          dst: gitee/CMSZ001
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          account_type: user
+          cache_path: /github/workspace/cache
+          force_update: true
+          clone_style: "ssh"
+          static_list: "hw"
