@@ -4,15 +4,16 @@ on:
     branches:
       - main
 
-steps:
-- name: Mirror the Github organization repos to Gitee.
-  uses: Yikun/hub-mirror-action@master
-  with:
-    src: github/CMSZ002
-    dst: gitee/CMSZ001
-    dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-    dst_token: ${{ secrets.GITEE_TOKEN }}
-    account_type: user
-    clone_style: ssh
-    static_list: "hw"
-    force_update: true
+jobs: 
+    steps:
+    - name: Mirror the Github organization repos to Gitee.
+    uses: Yikun/hub-mirror-action@master
+    with:
+        src: github/CMSZ002
+        dst: gitee/CMSZ001
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token: ${{ secrets.GITEE_TOKEN }}
+        account_type: user
+        clone_style: ssh
+        static_list: "hw"
+        force_update: true
