@@ -2,22 +2,17 @@ name: 镜像仓库到 Gitee
 on:
   push:
     branches:
-      - main  # 根据需要调整分支
-env:
-  REPO_NAME: ${{ github.event.repository.name }}
-jobs:
-  mirror-to-gitee:
-    name: 同步到 Gitee
-    runs-on: ubuntu-latest
-    steps:
-      - name: Mirror repo to Gitee.
-        uses: Yikun/hub-mirror-action@master
-        with:
-          src: github/CMSZ002  # 替换为你的GitHub用户名
-          dst: gitee/CMSZ001    # 替换为你的Gitee用户名
-          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-          dst_token: ${{ secrets.GITEE_TOKEN }}
-          account_type: user
-          cache_path: /github/workspace/cache
-          force_update: true
-          clone_style: "ssh"
+      - main
+
+steps:
+- name: Mirror the Github organization repos to Gitee.
+  uses: Yikun/hub-mirror-action@master
+  with:
+    src: github/CMSZ002
+    dst: gitee/CMSZ001
+    dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+    dst_token: ${{ secrets.GITEE_TOKEN }}
+    account_type: user
+    clone_style: ssh
+    static_list: "hw"
+    force_update: true
