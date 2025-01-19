@@ -14,3 +14,4 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fhw.acmsz.top)](https://hw.acmsz.top)
 [![docsify](https://img.shields.io/github/v/tag/docsifyjs/docsify?label=docsify
 )](https://docsify.js.org/)
+[![镜像仓库到 Gitee](https://github.com/CMSZ002/hw/actions/workflows/mirror-to-gitee.yaml/badge.svg)](https://github.com/CMSZ002/hw/actions/workflows/mirror-to-gitee.yaml)
