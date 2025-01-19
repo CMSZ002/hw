@@ -19,5 +19,4 @@ jobs:
           account_type: user
           cache_path: /github/workspace/cache
           force_update: true
-          clone_style: "ssh"
           static_list: "hw"
