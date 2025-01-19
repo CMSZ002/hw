@@ -1,4 +1,4 @@
-name: 镜像仓库到 Gitee
+name: 镜像到 Gitee
 on:
   push:
     branches:
