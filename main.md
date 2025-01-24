@@ -20,6 +20,6 @@
 [第一周周末作业详情](../hw/1.md ":include")
 -->
 
-[八上作业](./main_G8S1.md)
+[八上作业](main_G8S1.md)
 
 [**Powered by docsify**](https://docsify.js.org)  
