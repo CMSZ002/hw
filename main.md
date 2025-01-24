@@ -1,11 +1,9 @@
 ﻿<h1> 作业 | Docsify </h1>
 
 -----
-> **©2025 By CMSZ**  
+> **©2024-2025 By CMSZ**  
 > **由[Docsify](https://docsify.js.org/)强力驱动**  
 > [**网站访问统计**](https://umami.acmsz.top/share/ujwRB7ggcm8Ekj7V/hw.acmsz.top)
-
-!> **单击图片可放大**
 
 -----
 ## 寒假作业 ##
