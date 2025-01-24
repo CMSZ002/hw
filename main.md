@@ -23,4 +23,3 @@
 [八上作业](./main_G8S1.md)
 
 [**Powered by docsify**](https://docsify.js.org)  
-[![docsify](https://img.shields.io/github/v/tag/docsifyjs/docsify?label=docsify)](https://docsify.js.org/)

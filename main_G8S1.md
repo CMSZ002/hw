@@ -129,4 +129,3 @@
 [hw](../hw_G8S1/1.md ":include")
 
 [**Powered by docsify**](https://docsify.js.org)
-[![docsify](https://img.shields.io/github/v/tag/docsifyjs/docsify?label=docsify)](https://docsify.js.org/)
