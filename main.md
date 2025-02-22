@@ -4,7 +4,7 @@
 
 > **©2024-2025 By CMSZ**  
 > **由 [Docsify](https://docsify.js.org/) 强力驱动**  
-> [**网站访问统计**](https://umami.acmsz.top/share/ujwRB7ggcm8Ekj7V/hw.acmsz.top)
+> [**网站访问统计**](https://umami.acmsz.top/share/9PRtp5s5D0AqW9Hz/hw.acmsz.top)
 
 ---
 
