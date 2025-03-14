@@ -7,6 +7,9 @@
 > [**网站访问统计**](https://umami.acmsz.top/share/9PRtp5s5D0AqW9Hz/hw.acmsz.top)
 
 ---
+## 第五周周末作业
+---
+[第五周周末作业](../hw/5.md ":include")
 ## 第四周周末作业
 ---
 [第四周周末作业](../hw/4.md ":include")
