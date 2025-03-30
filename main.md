@@ -5,6 +5,9 @@
 > **©2024-2025 By CMSZ**  
 > **由 [Docsify](https://docsify.js.org/) 强力驱动**  
 > [**网站访问统计**](https://umami.acmsz.top/share/9PRtp5s5D0AqW9Hz/hw.acmsz.top)
+---
+> [雨云](https://www.rainyun.com/NTgxMTM5_?s=hw)，湖北8272CL 100G+高防，8核16G 200兆，仅需178元/月。[点击这里购买](https://www.rainyun.com/NTgxMTM5_?s=hw)，优惠码（送5折券）：NTgxMTM5
+
 
 ---
 ## 第七周周末作业
