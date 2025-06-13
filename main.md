@@ -7,6 +7,9 @@
 > [**网站访问统计**](https://umami.acmsz.top/share/9PRtp5s5D0AqW9Hz/hw.acmsz.top)
 
 ---
+## 笫十八周周末作业
+---
+[笫十八周周末作业](../hw/18.md ":include")
 ## 笫十七周周末作业
 ---
 [笫十七周周末作业](../hw/17.md ":include")
