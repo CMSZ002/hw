@@ -8,17 +8,6 @@
   <title>作业 | Docsify</title>
   <link rel="icon" href="./favicon.ico" />
   <link href="//s4.zstatic.net/npm/docsify@4.13.1/themes/vue.css" rel="stylesheet" />
-  <script>
-    function isWeChatBrowser() {
-        var ua = navigator.userAgent.toLowerCase();
-        return ua.match(/MicroMessenger/i) == "micromessenger";
-      }
-    
-      if (isWeChatBrowser()) {
-        document.getElementById("wechat-mask").style.display = "block";
-        document.body.style.overflow = "hidden";
-      }
-  </script>
 </head>
 
 <body>
@@ -35,6 +24,16 @@
       repo: "CMSZ002/hw",
       name: "作业 | Docsify",
     };
+  </script>
+  <script>
+    function isWeChatBrowser() {
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.match(/MicroMessenger/i) == "micromessenger";
+      }
+      if (isWeChatBrowser()) {
+        document.getElementById("wechat-mask").style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
   </script>
   <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.js"></script>
   <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/emoji.js"></script>
