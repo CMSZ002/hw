@@ -13,7 +13,8 @@ const HOSTNAME_WHITELIST = [
   'fonts.googleapis.com',
   'cdn.jsdelivr.net',
   'unpkg.com',
-  'umami.acmsz.top'
+  'umami.acmsz.top',
+  's4.zstatic.net'
 ]
 
 // The Util Function to hack URLs of intercepted requests

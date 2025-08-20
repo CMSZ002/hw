@@ -1,30 +1,52 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<meta charset="UTF-8" />
-		<title>作业 | Docsify</title>
-		<link rel="icon" href="./favicon.ico" />
-		<link href="//s4.zstatic.net/npm/docsify@4.13.1/themes/vue.css" rel="stylesheet">
-	</head>
-	<body>
-		<div id="app">欢迎进入<br>作业 | Docsify<br>正在加载中······</div>
-		<script>
-			window.$docsify = {
-				maxLevel: 3,
-				homepage: 'main.md',
-				repo: 'CMSZ002/hw',
-				name: '作业 | Docsify',
-			};
-		</script>
-		<script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.js"></script>
-		<script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/emoji.js"></script>
-		<script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/zoom-image.js"></script>
-		<script>
-			if (typeof navigator.serviceWorker !== 'undefined') {
-				navigator.serviceWorker.register('sw.js')
-				}
-		</script>
-	</body>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>作业 | Docsify</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link
+      href="//s4.zstatic.net/npm/docsify@4.13.1/themes/vue.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
+    <div id="wechat-mask" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 20px; text-align: center;">
+        <p>请在外部浏览器中打开本页面</p>
+        <p>点击右上角菜单，选择“在浏览器中打开”</p>
+      </div>
+    </div>
+    <script>
+      window.$docsify = {
+        maxLevel: 3,
+        homepage: "main_G9S1.md",
+        repo: "CMSZ002/hw",
+        name: "作业 | Docsify",
+      };
+    </script>
+    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.js"></script>
+    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/emoji.js"></script>
+    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/zoom-image.js"></script>
+    <script>
+      // 判断是否在微信内置浏览器中
+      function isWeChatBrowser() {
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.match(/MicroMessenger/i) == "micromessenger";
+      }
+
+      // 如果在微信内置浏览器中，显示蒙版
+      if (isWeChatBrowser()) {
+        document.getElementById("wechat-mask").style.display = "block";
+        // 阻止页面滚动
+        document.body.style.overflow = "hidden";
+      }
+
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </body>
 </html>
