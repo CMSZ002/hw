@@ -1,0 +1,6 @@
+[build]
+  command = """
+    npx html-minifier-terser index.html --output-dir . --collapse-whitespace --remove-comments --minify-js --minify-css --file-ext html && \
+    npx terser sw.js --compress --mangle -o sw.js
+  """
+  publish = "."
