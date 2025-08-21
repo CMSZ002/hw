@@ -1,32 +1,55 @@
 ﻿<!DOCTYPE html>
 <html>
-
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta charset="UTF-8" />
-  <title>作业 | Docsify</title>
-  <link rel="icon" href="./favicon.ico" />
-  <link href="//s4.zstatic.net/npm/docsify@4.13.1/lib/themes/vue.css" rel="stylesheet" />
-</head>
-
-<body>
-  <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-  <div id="wechat-mask" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 9999;">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 48px; text-align: center;">
-      <p>请点击右上角 · · ·，选择“在浏览器中打开”</p>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>作业 | Docsify</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link
+      href="//s4.zstatic.net/npm/docsify@4.13.1/lib/themes/vue.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
+    <div
+      id="wechat-mask"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+      "
+    >
+      <div
+        style="
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+          font-size: 48px;
+          text-align: center;
+        "
+      >
+        <p>请点击右上角 · · ·<br />选择<strong>在浏览器中打开</strong></p>
+      </div>
     </div>
-  </div>
-  <script>
-    window.$docsify = {
-      maxLevel: 3,
-      homepage: "main_G9S1.md",
-      repo: "CMSZ002/hw",
-      name: "作业 | Docsify",
-    };
-  </script>
-  <script>
-    function isWeChatBrowser() {
+    <script>
+      window.$docsify = {
+        maxLevel: 3,
+        homepage: "main_G9S1.md",
+        repo: "CMSZ002/hw",
+        name: "作业 | Docsify",
+      };
+    </script>
+    <script>
+      function isWeChatBrowser() {
         var ua = navigator.userAgent.toLowerCase();
         return ua.match(/MicroMessenger/i) == "micromessenger";
       }
@@ -34,14 +57,13 @@
         document.getElementById("wechat-mask").style.display = "block";
         document.body.style.overflow = "hidden";
       }
-  </script>
-  <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.min.js"></script>
-  <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/zoom-image.min.js"></script>
-  <script>
-    if (typeof navigator.serviceWorker !== "undefined") {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
-</body>
-
+    </script>
+    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.min.js"></script>
+    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/zoom-image.min.js"></script>
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </body>
 </html>
