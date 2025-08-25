@@ -1,107 +1,97 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>作业 | Docsify</title>
+    <link
+      href="//cdn.jsdmirror.com/npm/docsify@4.13.1/lib/themes/vue.css"
+      rel="stylesheet"
+    />
+    <style>
+      @media (prefers-color-scheme: light) {
+        #update-screen {
+          background: #fff;
+          color: #000;
+        }
 
-
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta charset="UTF-8" />
-  <title>作业 | Docsify</title>
-  <link href="//s4.zstatic.net/npm/docsify@4.13.1/lib/themes/vue.css" rel="stylesheet" />
-  <style>
-    /* 亮色 / 暗色自动识别 */
-    @media (prefers-color-scheme: light) {
-      #update-screen {
-        background: #fff;
-        color: #000;
+        #update-btn {
+          background: #005eff;
+          color: #fff;
+        }
       }
 
-      #update-btn {
-        background: #005eff;
-        color: #fff;
-      }
-    }
+      @media (prefers-color-scheme: dark) {
+        #update-screen {
+          background: #121212;
+          color: #fff;
+        }
 
-    @media (prefers-color-scheme: dark) {
-      #update-screen {
-        background: #121212;
-        color: #fff;
+        #update-btn {
+          background: #0a84ff;
+          color: #fff;
+        }
       }
+    </style>
+  </head>
 
-      #update-btn {
-        background: #0a84ff;
-        color: #fff;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <script>
-    window.$docsify = {
-      maxLevel: 3,
-      homepage: "main_G9S1.md",
-      repo: "CMSZ002/hw",
-      name: "作业 | Docsify",
-    };
-  </script>
-  <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-  <div id="wechat-mask" style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-      ">
-    <div style="
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          color: white;
-          font-size: 48px;
-          text-align: center;
-        ">
-      <p>请点击右上角 · · ·<br />选择<strong>在浏览器中打开</strong></p>
-    </div>
-    <div id="update-screen" hidden style="position:fixed;inset:0;display:flex;flex-direction:column;
-            align-items:center;justify-content:center;
-            font-family:system-ui, sans-serif;font-size:1.125rem;
-            transition:background .3s,color .3s;z-index:9999">
-      <p id="update-text" style="margin:0 0 1rem">页面有更新</p>
-      <button id="update-btn" style="padding:.5rem 1.25rem;border:none;border-radius:4px;
-                 font-size:1rem;cursor:pointer">刷新</button>
-    </div>
+  <body>
     <script>
-      function isWeChatBrowser() {
-        var ua = navigator.userAgent.toLowerCase();
-        return ua.match(/MicroMessenger/i) == "micromessenger";
-      }
-      if (isWeChatBrowser()) {
-        document.getElementById("wechat-mask").style.display = "block";
-        document.body.style.overflow = "hidden";
-      }
+      window.$docsify = {
+        maxLevel: 3,
+        homepage: "main_G9S1.md",
+        repo: "CMSZ002/hw",
+        name: "作业 | Docsify",
+      };
     </script>
-    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/docsify.min.js"></script>
-    <script src="//s4.zstatic.net/npm/docsify@4.13.1/lib/plugins/zoom-image.min.js"></script>
+    <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
+    <div
+      id="update-screen"
+      hidden
+      style="
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, sans-serif;
+        font-size: 1.125rem;
+        transition: background 0.3s, color 0.3s;
+        z-index: 9999;
+      "
+    >
+      <p id="update-text" style="margin: 0 0 1rem">页面有更新</p>
+      <button
+        id="update-btn"
+        style="
+          padding: 0.5rem 1.25rem;
+          border: none;
+          border-radius: 4px;
+          font-size: 1rem;
+          cursor: pointer;
+        "
+      >
+        刷新
+      </button>
+    </div>
+    <script src="//cdn.jsdmirror.com/npm/docsify@4.10.2/lib/docsify.min.js"></script>
+    <script src="//cdn.jsdmirror.com/npm/docsify@4.13.1/lib/plugins/zoom-image.min.js"></script>
     <script>
-      if (typeof navigator.serviceWorker !== 'undefined') {
-        navigator.serviceWorker.register('sw.js');
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
       }
 
-      navigator.serviceWorker.addEventListener('message', e => {
-        if (e.data?.type === 'UPDATE_READY') {
-          document.getElementById('update-screen').hidden = false;
+      navigator.serviceWorker.addEventListener("message", (e) => {
+        if (e.data?.type === "UPDATE_READY") {
+          document.getElementById("update-screen").hidden = false;
         }
       });
 
-      document.getElementById('update-btn').addEventListener('click', () => {
+      document.getElementById("update-btn").addEventListener("click", () => {
         location.reload();
       });
     </script>
-</body>
-
+  </body>
 </html>
