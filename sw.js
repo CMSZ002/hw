@@ -1,4 +1,4 @@
-﻿/* ===========================================================
+/* ===========================================================
  * docsify sw.js  –  stale-while-revalidate + umami always online
  * ========================================================== */
 const RUNTIME = 'docsify-v1';
@@ -7,9 +7,8 @@ const HOSTNAME_WHITELIST = [
   'fonts.gstatic.com',
   'fonts.googleapis.com',
   'cdn.jsdelivr.net',
-  'unpkg.com',
   'umami.acmsz.top',
-  's4.zstatic.net'
+  'cdn.jsdmirror.com'
 ];
 
 // ------------------- util -------------------
@@ -50,24 +49,29 @@ self.addEventListener('fetch', event => {
       const fixedUrl = getFixedUrl(event.request);
       const fetched = fetch(fixedUrl, { cache: 'no-store' });
       const fetchedCopy = fetched.then(r => r.clone());
-
-      // 后台更新缓存 + 立即通知页面
+  
+      // 后台更新缓存 + 仅在资源确实更新时才通知页面
       event.waitUntil(
         fetchedCopy
           .then(res => {
             if (res.ok) {
-              // 1. 写入缓存
               return caches.open(RUNTIME).then(c => c.put(event.request, res))
-                // 2. 立即通知所有页面
-                .then(() => self.clients.matchAll())
-                .then(clients => clients.forEach(c =>
-                  c.postMessage({ type: 'UPDATE_READY' })
-                ));
+                .then(() => {
+                  // 检查资源是否真的更新了
+                  return caches.match(event.request).then(newCached => {
+                    if (!newCached || !cached || newCached.headers.get('etag') !== cached.headers.get('etag')) {
+                      return self.clients.matchAll()
+                        .then(clients => clients.forEach(c =>
+                          c.postMessage({ type: 'UPDATE_READY' })
+                        ));
+                    }
+                  });
+                });
             }
           })
           .catch(() => { })
       );
-
+  
       return cached || fetched.catch(() => cached);
     })
   );
