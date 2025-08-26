@@ -81,6 +81,8 @@ self.addEventListener('fetch', event => {
     )
   }
   // 1) umami统计脚本/数据：永远网络优先，不缓存
+  const url = new URL(event.request.url);
+  const hostname = url.hostname;
   if (hostname === 'umami.acmsz.top') {
     event.respondWith(
       fetch(event.request).catch(() => {
