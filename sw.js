@@ -28,13 +28,6 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
-// 监听来自页面的消息
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
-
 // ------------------- fetch -------------------
 self.addEventListener('fetch', event => {
   const { hostname } = new URL(event.request.url);
@@ -69,10 +62,11 @@ self.addEventListener('fetch', event => {
                     if (!newCached || !cached || newCached.headers.get('etag') !== cached.headers.get('etag')) {
                       // 强制激活新的 Service Worker
                       self.skipWaiting();
-                      return self.clients.matchAll()
-                        .then(clients => clients.forEach(c =>
-                          c.postMessage({ type: 'UPDATE_READY' })
-                        ));
+                      // 不再发送 UPDATE_READY 消息，因为页面不再显示更新提示
+                      // return self.clients.matchAll()
+                      //   .then(clients => clients.forEach(c =>
+                      //     c.postMessage({ type: 'UPDATE_READY' })
+                      //   ));
                     }
                   });
                 });
