@@ -86,10 +86,15 @@
       navigator.serviceWorker.addEventListener("message", (e) => {
         if (e.data?.type === "UPDATE_READY") {
           document.getElementById("update-screen").hidden = false;
+          // 向 Service Worker 发送消息，请求跳过等待并激活新的版本
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+          }
         }
       });
 
       document.getElementById("update-btn").addEventListener("click", () => {
+        // 刷新页面
         location.reload();
       });
     </script>
