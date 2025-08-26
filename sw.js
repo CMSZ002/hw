@@ -1,81 +1,111 @@
 /* ===========================================================
- * docsify sw.js  –  stale-while-revalidate + umami always online
+ * docsify sw.js
+ * ===========================================================
+ * Copyright 2016 @huxpro
+ * Licensed under Apache 2.0
+ * Register service worker.
  * ========================================================== */
-const RUNTIME = 'docsify-v1';
+
+const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
   'fonts.gstatic.com',
   'fonts.googleapis.com',
-  'cdn.jsdelivr.net',
-  'umami.acmsz.top',
-  'cdn.jsdmirror.com'
-];
+  'cdn.jsdelivr.net'
+]
 
-// ------------------- util -------------------
+// The Util Function to hack URLs of intercepted requests
 const getFixedUrl = (req) => {
-  const url = new URL(req.url);
-  // 1. 统一协议
-  url.protocol = self.location.protocol;
-  // 2. 给同源请求加 cache-bust 以防 http 缓存
+  var now = Date.now()
+  var url = new URL(req.url)
+
+  // 1. fixed http URL
+  // Just keep syncing with location.protocol
+  // fetch(httpURL) belongs to active mixed content.
+  // And fetch(httpRequest) is not supported yet.
+  url.protocol = self.location.protocol
+
+  // 2. add query for caching-busting.
+  // Github Pages served with Cache-Control: max-age=600
+  // max-age on mutable content is error-prone, with SW life of bugs can even extend.
+  // Until cache mode of Fetch API landed, we have to workaround cache-busting with query string.
+  // Cache-Control-Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=453190
   if (url.hostname === self.location.hostname) {
-    url.search += (url.search ? '&' : '?') + 'cache-bust=' + Date.now();
+    url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
   }
-  return url.href;
-};
+  return url.href
+}
 
-// ------------------- lifecycle -------------------
+/**
+ *  @Lifecycle Activate
+ *  New one activated when old isnt being used.
+ *
+ *  waitUntil(): activating ====> activated
+ */
 self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
-});
+  event.waitUntil(self.clients.claim())
+})
 
-// ------------------- fetch -------------------
+/**
+ *  @Functional Fetch
+ *  All network requests are being intercepted here.
+ *
+ *  void respondWith(Promise<Response> r)
+ */
 self.addEventListener('fetch', event => {
-  const { hostname } = new URL(event.request.url);
+  // Skip some of cross-origin requests, like those for Google Analytics.
+  if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
+    // Stale-while-revalidate
+    // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
+    // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
+    const cached = caches.match(event.request)
+    const fixedUrl = getFixedUrl(event.request)
+    const fetched = fetch(fixedUrl, { cache: 'no-store' })
+    const fetchedCopy = fetched.then(resp => resp.clone())
 
-  // 不在白名单内：直接放行
-  if (!HOSTNAME_WHITELIST.includes(hostname)) return;
+    // Call respondWith() with whatever we get first.
+    // If the fetch fails (e.g disconnected), wait for the cache.
+    // If there’s nothing in cache, wait for the fetch.
+    // If neither yields a response, return offline pages.
+    event.respondWith(
+      Promise.race([fetched.catch(_ => cached), cached])
+        .then(resp => resp || fetched)
+        .catch(_ => { /* eat any errors */ })
+    )
 
-  // 1) umami 统计脚本/数据：永远网络优先，不缓存
+    // Update the cache with the version we fetched (only for ok status)
+    event.waitUntil(
+      Promise.all([fetchedCopy, caches.open(RUNTIME)])
+        .then(([response, cache]) => response.ok && cache.put(event.request, response))
+        .catch(_ => { /* eat any errors */ })
+    )
+  }
+  // 1) umami统计脚本/数据：永远网络优先，不缓存
   if (hostname === 'umami.acmsz.top') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request)) // 离线时兜底
+      fetch(event.request).catch(() => {
+        // 即使离线也尝试加载umami脚本
+        return new Response('', {status: 200, statusText: 'OK'});
+      })
     );
     return;
   }
-
-  // 2) 其余白名单资源：标准 stale-while-revalidate
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      const fixedUrl = getFixedUrl(event.request);
-      const fetched = fetch(fixedUrl, { cache: 'no-store' });
-      const fetchedCopy = fetched.then(r => r.clone());
-  
-      // 后台更新缓存 + 仅在资源确实更新时才通知页面
-      event.waitUntil(
-        fetchedCopy
-          .then(res => {
-            if (res.ok) {
-              return caches.open(RUNTIME).then(c => c.put(event.request, res))
-                .then(() => {
-                  // 检查资源是否真的更新了
-                  return caches.match(event.request).then(newCached => {
-                    if (!newCached || !cached || newCached.headers.get('etag') !== cached.headers.get('etag')) {
-                      // 强制激活新的 Service Worker
-                      self.skipWaiting();
-                      // 不再发送 UPDATE_READY 消息，因为页面不再显示更新提示
-                      // return self.clients.matchAll()
-                      //   .then(clients => clients.forEach(c =>
-                      //     c.postMessage({ type: 'UPDATE_READY' })
-                      //   ));
-                    }
-                  });
-                });
+  // 处理js脚本：强制缓存并加载
+  if (event.request.url.endsWith('.js')) {
+    event.respondWith(
+      caches.match(event.request)
+        .then(cachedResponse => {
+          // 优先返回缓存，同时后台更新
+          const networkFetch = fetch(event.request).then(response => {
+            if (response.ok) {
+              const clone = response.clone();
+              caches.open(RUNTIME).then(cache => cache.put(event.request, clone));
             }
-          })
-          .catch(() => { })
-      );
-  
-      return cached || fetched.catch(() => cached);
-    })
-  );
-});
+            return response;
+          });
+          return cachedResponse || networkFetch;
+        })
+    );
+    return;
+  }
+})

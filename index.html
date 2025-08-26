@@ -22,23 +22,9 @@
   <script src="//cdn.jsdmirror.com/npm/docsify@4.10.2/lib/docsify.min.js"></script>
   <script src="//cdn.jsdmirror.com/npm/docsify@4.13.1/lib/plugins/zoom-image.min.js"></script>
   <script>
-    if (typeof navigator.serviceWorker !== "undefined") {
-      navigator.serviceWorker.register("sw.js");
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('sw.js')
     }
-
-    navigator.serviceWorker.addEventListener("message", (e) => {
-      if (e.data?.type === "UPDATE_READY") {
-        // 向 Service Worker 发送消息，请求跳过等待并激活新的版本
-        if (navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
-        }
-      }
-    });
-
-    document.getElementById("update-btn").addEventListener("click", () => {
-      // 刷新页面
-      location.reload();
-    });
   </script>
 </body>
 
