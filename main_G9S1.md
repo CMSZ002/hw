@@ -12,6 +12,6 @@
 
 ---
 
-[第一周周末作业](../hw_G9S1/example.md ':include')
+[第一周周末作业](../hw_G9S1/1.md ':include')
 
 [**Powered by docsify**](https://docsify.js.org)
