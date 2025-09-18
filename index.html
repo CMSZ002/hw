@@ -1,40 +1,89 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta charset="UTF-8" />
-  <title>作业 | Docsify</title>
-  <link href="/vue.css" rel="stylesheet" />
-</head>
-
-<body>
-  <script>
-    window.$docsify = {
-      maxLevel: 3,
-      homepage: "main_G9S1.md",
-      repo: "CMSZ002/hw",
-      name: "作业 | Docsify",
-      
-    markdown: {
-      renderer: {
-        image(href, title, text) {
-          let out = this.origin.image.call(this, href, title, text);
-          return out.replace('<img', '<img loading="lazy"');
-        }
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>作业 | Docsify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <style>
+      * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
       }
-    }
-    };
-  </script>
-  <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-  <script src="/docsify.min.js"></script>
-  <script src="/zoom-image.min.js"></script>
-  <script>
-    if (typeof navigator.serviceWorker !== 'undefined') {
-      navigator.serviceWorker.register('sw.js')
-    }
-  </script>
-</body>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow-x: hidden;
+        color: #34495e;
+        font-family: "Source Sans Pro", Helvetica Neue, Arial, sans-serif;
+        font-size: 15px;
+        letter-spacing: 0;
+      }
+      body:not(.ready) {
+        overflow: hidden;
+      }
+      body:not(.ready) .app-nav,
+      body:not(.ready) > nav,
+      body:not(.ready) [data-cloak] {
+        display: none;
+      }
+      div#app {
+        font-size: 30px;
+        font-weight: lighter;
+        margin: 40vh auto;
+        text-align: center;
+      }
+      div#app:empty:before {
+        content: "正在加载中······";
+      }
+    </style>
+    <link
+      rel="preload"
+      href="/vue.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="/vue.css" /></noscript>
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"
+    /></noscript>
+  </head>
 
+  <body>
+    <script>
+      window.$docsify = {
+        maxLevel: 3,
+        homepage: "main_G9S1.md",
+        repo: "CMSZ002/hw",
+        name: "作业 | Docsify",
+        markdown: {
+          renderer: {
+            image(href, title, text) {
+              let out = this.origin.image.call(this, href, title, text);
+              return out.replace("<img", '<img loading="lazy"');
+            },
+          },
+        },
+      };
+    </script>
+    <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
+    <script src="/docsify.min.js"></script>
+    <script src="/zoom-image.min.js"></script>
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </body>
 </html>
