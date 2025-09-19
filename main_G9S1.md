@@ -8,15 +8,22 @@
 
 ---
 
+## 第三周周末作业
+
+---
+
+[第三周周末作业](../hw_G9S1/3.md ":include")
+
 ## 第二周周末作业
 
 ---
 
-[第二周周末作业](../hw_G9S1/2.md ':include')
+[第二周周末作业](../hw_G9S1/2.md ":include")
+
 ## 第一周周末作业
 
 ---
 
-[第一周周末作业](../hw_G9S1/1.md ':include')
+[第一周周末作业](../hw_G9S1/1.md ":include")
 
 [**Powered by docsify**](https://docsify.js.org)
