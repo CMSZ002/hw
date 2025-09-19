@@ -73,8 +73,8 @@
     <script src="/docsify.min.js"></script>
     <script src="/zoom-image.min.js"></script>
     <script>
-      if (typeof navigator.serviceWorker !== "undefined") {
-        navigator.serviceWorker.register("sw.js");
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(console.error);
       }
     </script>
   </body>
