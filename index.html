@@ -4,49 +4,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta charset="UTF-8" />
+    <link rel="icon" href="favicon.ico" />
     <title>作业 | Docsify</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <style>
-      * {
-        box-sizing: border-box;
-        -webkit-font-smoothing: antialiased;
-      }
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        overflow-x: hidden;
-        color: #34495e;
-        font-family: "Source Sans Pro", Helvetica Neue, Arial, sans-serif;
-        font-size: 15px;
-        letter-spacing: 0;
-      }
-      body:not(.ready) {
-        overflow: hidden;
-      }
-      body:not(.ready) .app-nav,
-      body:not(.ready) > nav,
-      body:not(.ready) [data-cloak] {
-        display: none;
-      }
-      div#app {
-        font-size: 30px;
-        font-weight: lighter;
-        margin: 40vh auto;
-        text-align: center;
-      }
-      div#app:empty:before {
-        content: "正在加载中······";
-      }
-    </style>
+    <!-- <style>
+        /* 核心CSS - 确保Docsify加载前有基本样式 */
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -webkit-overflow-scrolling: touch;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-text-size-adjust: none;
+            -webkit-touch-callout: none;
+        }
+        
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden;
+            color: #34495e;
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 15px;
+            letter-spacing: 0;
+            background-color: #fff;
+        }
+        
+        body:not(.ready) {
+            overflow: hidden;
+        }
+        
+        body:not(.ready) .app-nav,
+        body:not(.ready) > nav,
+        body:not(.ready) [data-cloak] {
+            display: none;
+        }
+        
+        div#app {
+            font-size: 30px;
+            font-weight: lighter;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            line-height: 1.6;
+            padding: 20px;
+            animation: fadeIn 1.2s ease;
+        }
+        
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: #42b983;
+            transition: width 0.3s ease;
+            z-index: 9999;
+        }
+        
+        .loading-dots:after {
+            content: '';
+            animation: dots 1.5s infinite;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+    </style> -->
     <link
       rel="preload"
-      href="/vue.css"
+      href="vue.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript><link rel="stylesheet" href="/vue.css" /></noscript>
+    <noscript><link rel="stylesheet" href="vue.css" /></noscript>
     <link
       rel="preload"
       href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"
@@ -66,15 +107,15 @@
         maxLevel: 3,
         homepage: "main_G9S1.md",
         repo: "CMSZ002/hw",
-        name: "作业 | Docsify"
+        name: "作业 | Docsify",
       };
     </script>
     <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-    <script src="/docsify.min.js"></script>
-    <script src="/zoom-image.min.js"></script>
+    <script src="docsify.min.js"></script>
+    <script src="zoom-image.min.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js").catch(console.error);
+        navigator.serviceWorker.register("sw.js");
       }
     </script>
   </body>

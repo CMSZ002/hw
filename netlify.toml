@@ -16,17 +16,6 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# JS/CSS：长缓存
-[[headers]]
-  for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
 # 图片/字体：长缓存
 [[headers]]
   for = "/*.(png|jpg|jpeg|gif|svg|webp|ico|woff2)"
