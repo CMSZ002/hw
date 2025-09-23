@@ -6,99 +6,29 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="favicon.ico" />
     <title>作业 | Docsify</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- <style>
-        /* 核心CSS - 确保Docsify加载前有基本样式 */
-        * {
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -webkit-overflow-scrolling: touch;
-            -webkit-tap-highlight-color: rgba(0,0,0,0);
-            -webkit-text-size-adjust: none;
-            -webkit-touch-callout: none;
-        }
-        
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow-x: hidden;
-            color: #34495e;
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-            font-size: 15px;
-            letter-spacing: 0;
-            background-color: #fff;
-        }
-        
-        body:not(.ready) {
-            overflow: hidden;
-        }
-        
-        body:not(.ready) .app-nav,
-        body:not(.ready) > nav,
-        body:not(.ready) [data-cloak] {
-            display: none;
-        }
-        
-        div#app {
-            font-size: 30px;
-            font-weight: lighter;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            line-height: 1.6;
-            padding: 20px;
-            animation: fadeIn 1.2s ease;
-        }
-        
-        .progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background-color: #42b983;
-            transition: width 0.3s ease;
-            z-index: 9999;
-        }
-        
-        .loading-dots:after {
-            content: '';
-            animation: dots 1.5s infinite;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-    </style> -->
-    <link
-      rel="preload"
-      href="vue.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="vue.css" /></noscript>
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript
-      ><link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"
-    /></noscript>
+    <!-- 预连接字体服务 -->  
+    <link rel="preconnect" href="https://fonts.googleapis.com" />  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />  
+
+    <!-- 预加载并同步加载 CSS -->  
+    <link rel="preload" href="vue.css" as="style" />  
+    <link rel="stylesheet" href="vue.css" />  
+
+    <!-- 预加载并同步加载字体 -->  
+    <link  
+      rel="preload"  
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"  
+      as="style"  
+    />  
+    <link  
+      rel="stylesheet"  
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono|Source+Sans+Pro:300,400,600"  
+    />  
+
+    <!-- 预加载 JS 脚本 -->  
+    <link rel="preload" href="docsify.min.js" as="script" />  
+    <link rel="preload" href="zoom-image.min.js" as="script" />  
+    <link rel="preload" href="sw.js" as="script" />
   </head>
 
   <body>
