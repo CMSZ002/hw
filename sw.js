@@ -1,92 +1,91 @@
 /* ===========================================================
- * docsify sw.js (修正版)
+ * docsify sw.js (区分 .md 和其他资源)
  * ===========================================================
- * Copyright 2016 @huxpro
- * Licensed under Apache 2.0
- * Register service worker.
- * ========================================================== */
-
+ */
 const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
   'fonts.gstatic.com',
   'fonts.googleapis.com',
   'cdn.jsdelivr.net',
-  'cdn.jsdmirror.com'
+  'hw.acmsz.top'
 ]
 
-// 工具函数：修正 URL
+// 修正 URL
 const getFixedUrl = (req) => {
-  var now = Date.now()
   var url = new URL(req.url)
-
-  // 强制使用当前页面协议（避免混合内容）
   url.protocol = self.location.protocol
-
-  // 本地资源加 cache-bust，避免缓存过久
-  if (url.hostname === self.location.hostname) {
-    url.search += (url.search ? '&' : '?') + 'cache-bust=' + now
-  }
   return url.href
 }
 
-/**
- *  @Lifecycle Activate
- */
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim())
 })
 
-/**
- *  @Functional Fetch
- */
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
   const hostname = url.hostname
+  const requestUrl = event.request.url
 
-  // 1) 白名单资源：stale-while-revalidate
+  // 1) docsify .md 文件：网络优先，离线兜底
+  if (requestUrl.endsWith('.md')) {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .then(networkResp => {
+          // 更新缓存
+          const respClone = networkResp.clone()
+          caches.open(RUNTIME).then(cache => cache.put(event.request, respClone))
+          return networkResp
+        })
+        .catch(() => caches.match(event.request)) // 离线兜底
+    )
+    return
+  }
+
+  // 2) 白名单资源：缓存优先 + 后台更新
   if (HOSTNAME_WHITELIST.includes(hostname)) {
-    const cached = caches.match(event.request)
     const fixedUrl = getFixedUrl(event.request)
     const fetched = fetch(fixedUrl, { cache: 'no-store' })
-    const fetchedCopy = fetched.then(resp => resp.clone())
 
     event.respondWith(
-      Promise.race([fetched.catch(_ => cached), cached])
-        .then(resp => resp || fetched)
-        .catch(_ => { /* 吃掉错误 */ })
+      caches.match(event.request).then(cachedResp => {
+        return cachedResp || fetched
+      })
     )
 
     event.waitUntil(
-      Promise.all([fetchedCopy, caches.open(RUNTIME)])
-        .then(([response, cache]) => response.ok && cache.put(event.request, response))
-        .catch(_ => { /* 吃掉错误 */ })
+      fetched.then(resp => {
+        if (resp && resp.ok) {
+          const clone = resp.clone()
+          caches.open(RUNTIME).then(cache => cache.put(event.request, clone))
+        }
+      }).catch(() => { /* 吃掉错误 */ })
     )
+    return
   }
 
-  // 2) umami 统计脚本/数据：永远网络优先，不缓存
-  else if (hostname === 'umami.acmsz.top') {
+  // 3) umami 统计：永远不缓存
+  if (hostname === 'umami.acmsz.top') {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        // 即使离线也返回空响应，避免报错
-        return new Response('', { status: 200, statusText: 'OK' })
-      })
+      fetch(event.request).catch(() => new Response('', { status: 200 }))
     )
+    return
   }
 
-  // 3) 处理 JS 脚本：强制缓存并后台更新
-  else if (event.request.url.endsWith('.js')) {
+  // 4) 其他 js/css 等：缓存优先 + 后台更新
+  if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css')) {
     event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        const networkFetch = fetch(event.request).then(response => {
-          if (response.ok) {
-            const clone = response.clone()
+      caches.match(event.request).then(cachedResp => {
+        const networkFetch = fetch(event.request).then(resp => {
+          if (resp.ok) {
+            const clone = resp.clone()
             caches.open(RUNTIME).then(cache => cache.put(event.request, clone))
           }
-          return response
+          return resp
         })
-        return cachedResponse || networkFetch
+        return cachedResp || networkFetch
       })
     )
+    return
   }
 })
