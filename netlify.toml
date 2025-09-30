@@ -10,9 +10,9 @@
   """
   publish = "."
 
-# HTML：不缓存，方便更新
+# HTML/MD：不缓存，方便更新
 [[headers]]
-  for = "/*.html"
+  for = "/*.(html|md)"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
