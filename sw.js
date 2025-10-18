@@ -1,7 +1,3 @@
-/* ===========================================================
- * docsify sw.js (区分 .md 和其他资源)
- * ===========================================================
- */
 const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
@@ -11,9 +7,8 @@ const HOSTNAME_WHITELIST = [
   'hw.acmsz.top'
 ]
 
-// 修正 URL
 const getFixedUrl = (req) => {
-  var url = new URL(req.url)
+  const url = new URL(req.url)
   url.protocol = self.location.protocol
   return url.href
 }
@@ -22,70 +17,62 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim())
 })
 
+const updateCache = async (request, url) => {
+  try {
+    const resp = await fetch(url || request, { cache: 'no-store' })
+    if (resp.ok) {
+      const clone = resp.clone()
+      const cache = await caches.open(RUNTIME)
+      await cache.put(request, clone)
+    }
+  } catch {}
+}
+
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
   const hostname = url.hostname
   const requestUrl = event.request.url
 
-  // 1) docsify .md 文件：网络优先，离线兜底
-  if (requestUrl.endsWith('.md')) {
-    event.respondWith(
-      fetch(event.request, { cache: 'no-store' })
-        .then(networkResp => {
-          // 更新缓存
-          const respClone = networkResp.clone()
-          caches.open(RUNTIME).then(cache => cache.put(event.request, respClone))
-          return networkResp
-        })
-        .catch(() => caches.match(event.request)) // 离线兜底
-    )
-    return
-  }
-
-  // 2) 白名单资源：缓存优先 + 后台更新
-  if (HOSTNAME_WHITELIST.includes(hostname)) {
-    const fixedUrl = getFixedUrl(event.request)
-    const fetched = fetch(fixedUrl, { cache: 'no-store' })
-
-    event.respondWith(
-      caches.match(event.request).then(cachedResp => {
-        return cachedResp || fetched
-      })
-    )
-
-    event.waitUntil(
-      fetched.then(resp => {
-        if (resp && resp.ok) {
-          const clone = resp.clone()
-          caches.open(RUNTIME).then(cache => cache.put(event.request, clone))
-        }
-      }).catch(() => { /* 吃掉错误 */ })
-    )
-    return
-  }
-
-  // 3) umami 统计：永远不缓存
-  if (hostname === 'umami.acmsz.top') {
-    event.respondWith(
-      fetch(event.request).catch(() => new Response('', { status: 200 }))
-    )
-    return
-  }
-
-  // 4) 其他 js/css 等：缓存优先 + 后台更新
-  if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css')) {
-    event.respondWith(
-      caches.match(event.request).then(cachedResp => {
-        const networkFetch = fetch(event.request).then(resp => {
-          if (resp.ok) {
-            const clone = resp.clone()
-            caches.open(RUNTIME).then(cache => cache.put(event.request, clone))
+  event.respondWith((async () => {
+    try {
+      if (requestUrl.endsWith('.md')) {
+        try {
+          const networkResp = await fetch(event.request, { cache: 'no-store' })
+          if (networkResp.ok) {
+            const clone = networkResp.clone()
+            const cache = await caches.open(RUNTIME)
+            cache.put(event.request, clone)
           }
-          return resp
-        })
-        return cachedResp || networkFetch
-      })
-    )
-    return
-  }
+          return networkResp
+        } catch {
+          const cachedResp = await caches.match(event.request)
+          return cachedResp || new Response('', { status: 503 })
+        }
+      }
+
+      if (HOSTNAME_WHITELIST.includes(hostname)) {
+        const cachedResp = await caches.match(event.request)
+        event.waitUntil(updateCache(event.request, getFixedUrl(event.request)))
+        return cachedResp || fetch(getFixedUrl(event.request), { cache: 'no-store' })
+      }
+
+      if (hostname === 'umami.acmsz.top') {
+        try {
+          return await fetch(event.request)
+        } catch {
+          return new Response('', { status: 200 })
+        }
+      }
+
+      if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css')) {
+        const cachedResp = await caches.match(event.request)
+        event.waitUntil(updateCache(event.request))
+        return cachedResp || fetch(event.request)
+      }
+
+      return await fetch(event.request)
+    } catch {
+      return new Response('', { status: 503 })
+    }
+  })())
 })
