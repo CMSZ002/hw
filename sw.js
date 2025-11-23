@@ -75,21 +75,27 @@ self.addEventListener('fetch', event => {
         }
       }
 
+      if (hostname === 'umami.acmsz.top') {
+        try {
+          // 对于 umami 统计脚本，直接请求并返回，允许跨域，不进行缓存
+          const response = await fetch(event.request)
+          return response
+        } catch {
+          // 如果请求失败，返回空响应而不是错误
+          return new Response('', { 
+            status: 200,
+            headers: { 'Content-Type': 'text/plain' }
+          })
+        }
+      }
+
       if (HOSTNAME_WHITELIST.includes(hostname)) {
         const cachedResp = await caches.match(event.request)
         event.waitUntil(updateCache(event.request, getFixedUrl(event.request)))
         return cachedResp || fetch(getFixedUrl(event.request), { cache: 'no-store' })
       }
 
-      if (hostname === 'umami.acmsz.top') {
-        try {
-          return await fetch(event.request)
-        } catch {
-          return new Response('', { status: 200 })
-        }
-      }
-
-      if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css')) {
+      if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css') || requestUrl.endsWith('.webp')) {
         const cachedResp = await caches.match(event.request)
         event.waitUntil(updateCache(event.request))
         return cachedResp || fetch(event.request)
