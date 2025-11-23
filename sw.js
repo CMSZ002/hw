@@ -1,10 +1,11 @@
 const RUNTIME = 'docsify'
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
-  'fonts.gstatic.com',
-  'fonts.googleapis.com',
+  'fonts.gstatic.cn',
+  'fonts.googleapis.cn',
   'cdn.jsdelivr.net',
-  'hw.acmsz.top'
+  'hw.acmsz.top',
+  'umami.acmsz.top'
 ]
 
 const getFixedUrl = (req) => {
