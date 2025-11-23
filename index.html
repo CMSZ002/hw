@@ -51,7 +51,18 @@
     <script src="zoom-image.min.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js");
+        navigator.serviceWorker.register("sw.js").then(function(registration) {
+          // 监听 Service Worker 发送的消息
+          navigator.serviceWorker.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'CONTENT_UPDATED') {
+              // 检查当前页面是否需要更新
+              if (window.location.href.includes(event.data.url)) {
+                // 刷新当前页面以显示新内容
+                window.location.reload();
+              }
+            }
+          });
+        });
       }
     </script>
   </body>

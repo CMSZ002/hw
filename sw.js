@@ -36,17 +36,41 @@ self.addEventListener('fetch', event => {
   event.respondWith((async () => {
     try {
       if (requestUrl.endsWith('.md')) {
-        try {
+        const cachedResp = await caches.match(event.request)
+        if (cachedResp) {
+          event.waitUntil((async () => {
+            try {
+              const networkResp = await fetch(event.request, { cache: 'no-store' })
+              if (networkResp.ok) {
+                const clone = networkResp.clone()
+                const cache = await caches.open(RUNTIME)
+                await cache.put(event.request, clone)
+                
+                // 检查内容是否发生变化
+                const cachedText = await cachedResp.text()
+                const networkText = await networkResp.text()
+                if (cachedText !== networkText) {
+                  // 通知页面内容已更新
+                  const clients = await self.clients.matchAll()
+                  for (const client of clients) {
+                    client.postMessage({
+                      type: 'CONTENT_UPDATED',
+                      url: event.request.url
+                    })
+                  }
+                }
+              }
+            } catch {}
+          })())
+          return cachedResp
+        } else {
           const networkResp = await fetch(event.request, { cache: 'no-store' })
           if (networkResp.ok) {
             const clone = networkResp.clone()
             const cache = await caches.open(RUNTIME)
-            cache.put(event.request, clone)
+            await cache.put(event.request, clone)
           }
           return networkResp
-        } catch {
-          const cachedResp = await caches.match(event.request)
-          return cachedResp || new Response('', { status: 503 })
         }
       }
 
