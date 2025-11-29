@@ -1,20 +1,18 @@
-import fetch from "node-fetch";
-
-const ALLOWED_ORIGIN = "https://hw.acmsz.top"; // 替换为你的站点域名
-
 export default async (request) => {
+  const PRODUCTION_ORIGIN = "https://hw.acmsz.top"; // 替换成你的站点域名
+
   const referer = request.headers.get("referer") || "";
   const origin = request.headers.get("origin") || "";
 
   // 只允许本站访问
-  if (!referer.startsWith(ALLOWED_ORIGIN) && origin !== ALLOWED_ORIGIN) {
+  if (!referer.startsWith(PRODUCTION_ORIGIN) && origin !== PRODUCTION_ORIGIN) {
     return new Response("Forbidden", { status: 403 });
   }
 
   const url = new URL(request.url);
   const path = url.pathname + url.search;
 
-  // Google Fonts CSS
+  // 代理 Google Fonts CSS
   if (path.startsWith("/googleapis/")) {
     const targetUrl = "https://fonts.googleapis.com" + path.replace("/googleapis", "");
     const response = await fetch(targetUrl, {
@@ -31,25 +29,26 @@ export default async (request) => {
       return `/gstatic/${p1}`;
     });
 
-    const headers = new Headers(response.headers);
+    const headers = new Headers();
     headers.set("Content-Type", "text/css; charset=utf-8");
     headers.set("Cache-Control", "public, max-age=31536000");
-    headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+    headers.set("Access-Control-Allow-Origin", PRODUCTION_ORIGIN);
 
-    return new Response(cssText, { status: response.status, headers });
+    return new Response(cssText, { status: 200, headers });
   }
 
-  // Google Fonts 字体文件
+  // 代理 Google Fonts 字体文件
   if (path.startsWith("/gstatic/")) {
     const targetUrl = "https://fonts.gstatic.com" + path.replace("/gstatic", "");
     const response = await fetch(targetUrl);
 
-    const body = await response.arrayBuffer();
-    const headers = new Headers(response.headers);
-    headers.set("Cache-Control", "public, max-age=31536000");
-    headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+    const arrayBuffer = await response.arrayBuffer();
 
-    return new Response(body, { status: response.status, headers });
+    const headers = new Headers();
+    headers.set("Cache-Control", "public, max-age=31536000");
+    headers.set("Access-Control-Allow-Origin", PRODUCTION_ORIGIN);
+
+    return new Response(arrayBuffer, { status: 200, headers });
   }
 
   return new Response("Not Found", { status: 404 });
