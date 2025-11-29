@@ -29,10 +29,44 @@ const updateCache = async (request, url) => {
   } catch {}
 }
 
+async function handleUmamiRequest(event) {
+  const url = event.request.url
+
+  if (url.endsWith('/script.js')) {
+    const cache = await caches.open(RUNTIME)
+    const cached = await cache.match(event.request)
+
+    if (cached) {
+      event.waitUntil((async () => {
+        try {
+          const freshResp = await fetch(event.request, { mode: 'no-cors', cache: 'no-store' })
+          await cache.put(event.request, freshResp.clone())
+        } catch {}
+      })())
+      return cached
+    }
+
+    try {
+      const resp = await fetch(event.request, { mode: 'no-cors', cache: 'no-store' })
+      await cache.put(event.request, resp.clone())
+      return resp
+    } catch {
+      return new Response('', { status: 200 })
+    }
+  }
+
+  return fetch(event.request, { mode: 'no-cors', cache: 'no-store' })
+}
+
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url)
   const hostname = url.hostname
   const requestUrl = event.request.url
+
+  if (hostname === 'umami.acmsz.top') {
+    event.respondWith(handleUmamiRequest(event))
+    return
+  }
 
   event.respondWith((async () => {
     try {
@@ -46,12 +80,10 @@ self.addEventListener('fetch', event => {
                 const clone = networkResp.clone()
                 const cache = await caches.open(RUNTIME)
                 await cache.put(event.request, clone)
-                
-                // 检查内容是否发生变化
+
                 const cachedText = await cachedResp.text()
                 const networkText = await networkResp.text()
                 if (cachedText !== networkText) {
-                  // 通知页面内容已更新
                   const clients = await self.clients.matchAll()
                   for (const client of clients) {
                     client.postMessage({
@@ -75,27 +107,15 @@ self.addEventListener('fetch', event => {
         }
       }
 
-      if (hostname === 'umami.acmsz.top') {
-        try {
-          // 对于 umami 统计脚本，直接请求并返回，允许跨域，不进行缓存
-          const response = await fetch(event.request)
-          return response
-        } catch {
-          // 如果请求失败，返回空响应而不是错误
-          return new Response('', { 
-            status: 200,
-            headers: { 'Content-Type': 'text/plain' }
-          })
-        }
-      }
-
       if (HOSTNAME_WHITELIST.includes(hostname)) {
         const cachedResp = await caches.match(event.request)
         event.waitUntil(updateCache(event.request, getFixedUrl(event.request)))
         return cachedResp || fetch(getFixedUrl(event.request), { cache: 'no-store' })
       }
 
-      if (requestUrl.endsWith('.js') || requestUrl.endsWith('.css') || requestUrl.endsWith('.webp')) {
+      if (requestUrl.endsWith('.js') ||
+          requestUrl.endsWith('.css') ||
+          requestUrl.endsWith('.webp')) {
         const cachedResp = await caches.match(event.request)
         event.waitUntil(updateCache(event.request))
         return cachedResp || fetch(event.request)
