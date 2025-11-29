@@ -1,5 +1,5 @@
 /* ===========================================================
- * docsify sw.js
+ * docsify sw.js (改写版)
  * ===========================================================
  * Copyright 2016 @huxpro
  * Licensed under Apache 2.0
@@ -8,28 +8,22 @@
 
 const RUNTIME = 'docsify';
 const HOSTNAME_WHITELIST = [
-  self.location.hostname,
-  'fonts.gstatic.com',
-  'fonts.googleapis.com',
-  'cdn.jsdelivr.net',
+  self.location.hostname
 ];
 
-// The Util Function to hack URLs of intercepted requests
+/**
+ * 生成缓存友好的 URL
+ * 1. 修复协议
+ * 2. 给本站内容加上 cache-bust
+ */
 const getFixedUrl = req => {
   const now = Date.now();
   const url = new URL(req.url);
 
-  // 1. fixed http URL
-  // Just keep syncing with location.protocol
-  // fetch(httpURL) belongs to active mixed content.
-  // And fetch(httpRequest) is not supported yet.
+  // 1. 修复 http/https 协议
   url.protocol = self.location.protocol;
 
-  // 2. add query for caching-busting.
-  // GitHub Pages served with Cache-Control: max-age=600
-  // max-age on mutable content is error-prone, with SW life of bugs can even extend.
-  // Until cache mode of Fetch API landed, we have to workaround cache-busting with query string.
-  // Cache-Control-Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=453190
+  // 2. 给本站 URL 添加缓存破坏参数
   if (url.hostname === self.location.hostname) {
     url.search += (url.search ? '&' : '?') + 'cache-bust=' + now;
   }
@@ -37,53 +31,48 @@ const getFixedUrl = req => {
 };
 
 /**
- *  @Lifecycle Activate
- *  New one activated when old isnt being used.
- *
- *  waitUntil(): activating ====> activated
+ * SW 激活阶段
+ * 立即接管页面
  */
 self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
 /**
- *  @Functional Fetch
- *  All network requests are being intercepted here.
- *
- *  void respondWith(Promise<Response> r)
+ * 拦截 fetch 请求
+ * - 白名单域名走 stale-while-revalidate
+ * - 排除 Umami 等统计请求
  */
 self.addEventListener('fetch', event => {
-  // Skip some of cross-origin requests, like those for Google Analytics.
-  if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
-    // Stale-while-revalidate
-    // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
-    // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
+  const url = new URL(event.request.url);
+
+  // 排除第三方统计请求（如 Umami）
+  if (url.hostname === 'umami.acmsz.top') {
+    return;
+  }
+
+  // 仅处理白名单内的请求
+  if (HOSTNAME_WHITELIST.includes(url.hostname)) {
     const cached = caches.match(event.request);
     const fixedUrl = getFixedUrl(event.request);
     const fetched = fetch(fixedUrl, { cache: 'no-store' });
     const fetchedCopy = fetched.then(resp => resp.clone());
 
-    // Call respondWith() with whatever we get first.
-    // If the fetch fails (e.g disconnected), wait for the cache.
-    // If there’s nothing in cache, wait for the fetch.
-    // If neither yields a response, return offline pages.
+    // RespondWith：先用 fetch 或缓存，保证离线可用
     event.respondWith(
-      Promise.race([fetched.catch(_ => cached), cached])
+      Promise.race([fetched.catch(() => cached), cached])
         .then(resp => resp || fetched)
-        .catch(_ => {
-          /* eat any errors */
+        .catch(() => {
+          /* 忽略错误 */
         }),
     );
 
-    // Update the cache with the version we fetched (only for ok status)
+    // 更新缓存
     event.waitUntil(
       Promise.all([fetchedCopy, caches.open(RUNTIME)])
-        .then(
-          ([response, cache]) =>
-            response.ok && cache.put(event.request, response),
-        )
-        .catch(_ => {
-          /* eat any errors */
+        .then(([response, cache]) => response.ok && cache.put(event.request, response))
+        .catch(() => {
+          /* 忽略错误 */
         }),
     );
   }
