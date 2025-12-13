@@ -57,18 +57,6 @@ jobs:
             echo "sw.js not found, skipping compression."
           fi
 
-      - name: Optimize Markdown Files
-        run: |
-          # 遍历所有 .md 文件并优化（删除注释和空行）
-          for file in **/*.md; do
-            if [ -f "$file" ]; then
-              # 删除 Markdown 文件中的注释和空行
-              sed -i '/^\s*<!--.*-->$/d' $file  # 删除注释
-              sed -i '/^\s*$/d' $file  # 删除空行
-              echo "Optimized $file"
-            fi
-          done
-
       - name: Install Netlify CLI
         run: npm install --global netlify-cli@latest
 
