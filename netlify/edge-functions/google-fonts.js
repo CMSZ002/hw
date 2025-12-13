@@ -24,10 +24,13 @@ export default async (request) => {
 
     let cssText = await response.text();
 
-    // 重写 CSS 内字体 URL
-    cssText = cssText.replace(/https:\/\/fonts\.gstatic\.com\/([^\)]+)/g, (match, p1) => {
-      return `/gstatic/${p1}`;
-    });
+    // 重写 CSS 内字体 URL（改为带域名）
+    cssText = cssText.replace(
+      /https:\/\/fonts\.gstatic\.com\/([^\)]+)/g,
+      (match, p1) => {
+        return `${PRODUCTION_ORIGIN}/gstatic/${p1}`;
+      }
+    );
 
     const headers = new Headers();
     headers.set("Content-Type", "text/css; charset=utf-8");
@@ -41,8 +44,8 @@ export default async (request) => {
   if (path.startsWith("/gstatic/")) {
     const targetUrl = "https://fonts.gstatic.com" + path.replace("/gstatic", "");
     const response = await fetch(targetUrl);
-
-    const arrayBuffer = await response.arrayBuffer();
+ 
+    const arrayBuffer = await response.arrayBuffer();  
 
     const headers = new Headers();
     headers.set("Cache-Control", "public, max-age=31536000");
