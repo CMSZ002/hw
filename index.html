@@ -23,27 +23,26 @@
       name: "作业 | Docsify",
       loadNavbar: true,
       plugins: [
-        function (hook, vm) {
+        function (hook) {
+          let observer = null;   // ✅ plugin 私有状态
+
           hook.doneEach(function () {
-            // 找到所有普通的 img 标签
-            document.querySelectorAll('.content img').forEach(img => {
-              // 跳过已经处理过的
-              if (img.classList.contains('lozad')) return;
-
-              // 把 src 改成 data-src
-              img.setAttribute('data-src', img.src);
+            // 只处理新图片
+            document.querySelectorAll('.content img:not(.lozad)').forEach(img => {
+              img.dataset.src = img.src;
               img.removeAttribute('src');
-
-              // 添加 lozad 类
               img.classList.add('lozad');
             });
 
-            // 初始化 lozad
-            const observer = lozad('.lozad', {
-              loaded: function (el) {
-                el.classList.add('fade'); // 可选淡入动画
-              }
-            });
+            // 只初始化一次
+            if (!observer) {
+              observer = lozad('.lozad', {
+                loaded(el) {
+                  el.classList.add('fade');
+                }
+              });
+            }
+
             observer.observe();
           });
         }
@@ -51,7 +50,7 @@
     };
   </script>
   <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-  <script src="assets/docsify.min.js"></script>
+  <script defer src="assets/docsify.min.js"></script>
   <script defer src="assets/zoom-image.min.js"></script>
   <script>
     if (typeof navigator.serviceWorker !== 'undefined') {
