@@ -1,33 +1,63 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta charset="UTF-8" />
-    <link rel="icon" href="favicon.ico" />
-    <title>作业 | Docsify</title>
-    <link rel="preload" href="/vue.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="vue.css" />
-    <script defer src="https://umami.acmsz.top/script.js" data-website-id="50438526-3c87-410d-8c6c-8bf7fc0ab6f3"></script>
-  </head>
 
-  <body>
-    <script>
-      window.$docsify = {
-        maxLevel: 3,
-        homepage: "G9S1.md",
-        repo: "CMSZ002/hw",
-        name: "作业 | Docsify",
-        loadNavbar: true,
-      };
-    </script>
-    <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
-    <script src="docsify.min.js"></script>
-    <script defer src="zoom-image.min.js"></script>
-    <script>
-      if (typeof navigator.serviceWorker !== 'undefined') {
-        navigator.serviceWorker.register('sw.js');
-      }
-    </script>
-  </body>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <title>作业 | Docsify</title>
+  <link rel="preload" href="assets/vue.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="assets/vue.css" />
+  <script type="text/javascript" src="assets/lozad.min.js"></script>
+  <script defer src="assets/umami.js" data-website-id="50438526-3c87-410d-8c6c-8bf7fc0ab6f3"
+    data-host-url="https://umami.acmsz.top"></script>
+</head>
+
+<body>
+  <script>
+    window.$docsify = {
+      maxLevel: 3,
+      homepage: "G9S1.md",
+      repo: "CMSZ002/hw",
+      name: "作业 | Docsify",
+      loadNavbar: true,
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function () {
+            // 找到所有普通的 img 标签
+            document.querySelectorAll('.content img').forEach(img => {
+              // 跳过已经处理过的
+              if (img.classList.contains('lozad')) return;
+
+              // 把 src 改成 data-src
+              img.setAttribute('data-src', img.src);
+              img.removeAttribute('src');
+
+              // 添加 lozad 类
+              img.classList.add('lozad');
+            });
+
+            // 初始化 lozad
+            const observer = lozad('.lozad', {
+              loaded: function (el) {
+                el.classList.add('fade'); // 可选淡入动画
+              }
+            });
+            observer.observe();
+          });
+        }
+      ]
+    };
+  </script>
+  <div id="app">欢迎进入<br />作业 | Docsify<br />正在加载中······</div>
+  <script src="assets/docsify.min.js"></script>
+  <script defer src="assets/zoom-image.min.js"></script>
+  <script>
+    if (typeof navigator.serviceWorker !== 'undefined') {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+
 </html>
