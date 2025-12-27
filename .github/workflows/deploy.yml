@@ -46,7 +46,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: site
+          name: artifact
           path: dist
 
       - name: Install Netlify CLI
@@ -79,6 +79,7 @@ jobs:
             --prod \
             --prebuilt \
             --cwd dist \
+            --yes \
             --token=${{ secrets.VERCEL_TOKEN }}
 
   deploy-to-cloudflare-pages:
