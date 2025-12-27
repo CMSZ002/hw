@@ -67,7 +67,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: site
+          name: artifact
           path: dist
 
       - name: Install Vercel CLI
@@ -87,7 +87,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: site
+          name: artifact
           path: dist
 
       - name: Publish to Cloudflare Pages
