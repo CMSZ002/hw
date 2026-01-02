@@ -15,9 +15,9 @@ export default defineNavbarConfig([
   {
     text: '目录',
     items: [
-      { text: '八上', link: 'G8S1/' },
-      { text: '八下', link: 'G8S2/' },
-      { text: '九上', link: '/' },
+      { text: '八年级上册', link: 'G8S1/' },
+      { text: '八年级下册', link: 'G8S2/' },
+      { text: '九年级上册', link: '/' },
     ]
   },
 ])
