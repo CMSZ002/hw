@@ -1,100 +1,48 @@
-name: Deploy VitePress site
+name: Deploy VuePress to pages branch
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  id-token: write
-
-concurrency:
-  group: deploy
-  cancel-in-progress: false
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24
-          cache: npm
+          node-version: 22
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
-      - name: Build with VitePress
-        run: npm run docs:build
+      - name: Build VuePress site
+        run: pnpm docs:build
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: .vitepress/dist
-
-  deploy-to-netlify:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifact
-          path: dist
-
-      - name: Install Netlify CLI
-        run: npm install -g netlify-cli
-
-      - name: Deploy to Netlify
+      - name: Deploy to pages branch
         run: |
-          netlify deploy \
-            --prod \
-            --dir=dist \
-            --auth=${{ secrets.NETLIFY_AUTH_TOKEN }} \
-            --site=${{ secrets.NETLIFY_SITE_ID }}
+          cd docs/.vuepress/dist
 
-  deploy-to-vercel:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifact
-          path: dist
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Install Vercel CLI
-        run: npm install -g vercel
+          git add -A
+          git commit -m "deploy: $(date +'%Y-%m-%d %H:%M:%S')"
 
-      - name: Deploy to Vercel
-        run: |
-          vercel deploy \
-            --prod \
-            --prebuilt \
-            --cwd dist \
-            --yes \
-            --token=${{ secrets.VERCEL_TOKEN }}
-
-  deploy-to-cloudflare-pages:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: artifact
-          path: dist
-
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
-          directory: dist
+          git branch -M pages
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push -f origin pages

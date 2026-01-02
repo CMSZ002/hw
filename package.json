@@ -1,13 +1,33 @@
 {
-  "devDependencies": {
-    "vitepress": "^2.0.0-alpha.15"
-  },
+  "name": "作业-vue-press",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "packageManager": "pnpm@10.24.0",
+  "author": "CMSZ <me@acmsz.top>",
+  "license": "MIT",
   "scripts": {
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:build": "vuepress build docs --clean-cache --clean-temp",
+    "docs:dev": "vuepress dev docs",
+    "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
+    "docs:preview": "http-server docs/.vuepress/dist",
+    "vp-update": "pnpm dlx vp-update"
   },
-  "dependencies": {
-    "medium-zoom": "^1.1.0"
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "http-server": "^14.1.1",
+    "typescript": "^5.9.3",
+    "vue": "^3.5.26",
+    "vuepress": "2.0.0-rc.26",
+    "vuepress-theme-plume": "1.0.0-rc.184"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.0.0"
   }
 }

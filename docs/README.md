@@ -1,10 +1,4 @@
-﻿<h1>作业 | VitePress</h1>
-
----
-
-> **©2024-2025 By CMSZ**  
-> **由 [VitePress](https://vitepress.dev/) 强力驱动**  
-> [**网站访问统计**](https://umami.acmsz.top/share/9PRtp5s5D0AqW9Hz/hw.acmsz.top)
+<h1>作业 | VitePress</h1>
 
 ## 第十八周周末作业
 
@@ -77,12 +71,6 @@
 ---
 
 <!--@include: ./G9S1/7.md-->
-
-## 第五周周末作业
-
----
-
-<!--@include: ./G9S1/6.md-->
 
 ## 国庆作业
 
