@@ -107,9 +107,7 @@ export default defineUserConfig({
     //     kotlin: true,     // ::: kotlin-repl
     //     python: true,     // ::: python-repl
     //   },
-      math: {             // 启用数学公式
-        type: 'katex',
-      },
+      math: false,
     //   chartjs: true,      // 启用 chart.js
     //   echarts: true,      // 启用 ECharts
     //   mermaid: true,      // 启用 mermaid
