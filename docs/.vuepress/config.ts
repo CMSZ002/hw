@@ -21,7 +21,7 @@ export default defineUserConfig({
 
   head: [
     // 配置站点图标
-    ['link', { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/assets/favicon-32x32.png' }],
     ['script', { defer: 'defer', src: '/assets/umami.js','data-website-id': '50438526-3c87-410d-8c6c-8bf7fc0ab6f3', 'data-host-url': 'https://umami.acmsz.top' }]
   ],
 
