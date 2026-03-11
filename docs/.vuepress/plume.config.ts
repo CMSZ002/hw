@@ -37,7 +37,7 @@ export default defineThemeConfig({
       license: 'CC-BY-NC-SA-4.0',
       author: {
         name: 'CMSZ',
-        url: 'https://www.acmsz.top/',
+        url: 'https://blog.acmsz.top/',
       },
     },
 
