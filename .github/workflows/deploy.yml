@@ -1,4 +1,4 @@
-name: Deploy VuePress to pages branch
+name:  🚀 Deploy hw-pages to Cloudflare Workers
 
 on:
   push:
@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v6
+      - name:  🚚 检出代码仓库 / Checkout repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
+      - name: ⚙ 设置 pnpm / Set up pnpm
         uses: pnpm/action-setup@v4
         with:
           # 使用 pnpm 安装依赖
           run_install: true
 
-      - name: Setup Node.js
+      - name: ⚙ 设置 Node.js / Set up Node.js
         uses: actions/setup-node@v4
         with:
           # 选择要使用的 node 版本
@@ -30,10 +30,10 @@ jobs:
           cache: pnpm
 
       # 运行构建脚本
-      - name: Build VuePress site
+      - name: ⚙ 构建 VuePress 站点 / Build VuePress site
         run: pnpm docs:build
 
-      - name: Deploy to Cloudflare Workers
+      - name: 🚀 开始部署 / Start deployment
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

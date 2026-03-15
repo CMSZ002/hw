@@ -20,11 +20,10 @@ jobs:
           cache_path: /github/workspace/cache
           force_update: true
           static_list: "hw"
-        
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
+
+      - name: 🗑️ 删除运行记录 / Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        continue-on-error: true
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository: ${{ github.repository }}
-          retain_days: 3
-          keep_minimum_runs: 0
+          retain_days: '1'
+          keep_minimum_runs: '0'
