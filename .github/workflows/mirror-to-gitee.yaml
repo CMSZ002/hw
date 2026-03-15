@@ -17,7 +17,6 @@ jobs:
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token: ${{ secrets.GITEE_TOKEN }}
           account_type: user
-          cache_path: /github/workspace/cache
           force_update: true
           static_list: "hw"
 
