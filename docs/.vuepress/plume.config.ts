@@ -55,7 +55,7 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/theme/#profile
    */
   profile: {
-    avatar: 'https://theme-plume.vuejs.press/plume.png',
+    avatar: '/assets/images/plume.png',
     name: '作业 | VuePress',
     description: '',
     // circle: true,
