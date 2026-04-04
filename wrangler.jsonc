@@ -1,0 +1,8 @@
+{
+	"compatibility_date": "2026-03-28",
+	"name": "hw",
+	"assets": {
+		"directory": "./docs/.vuepress/dist",
+		"not_found_handling": "404-page"
+	}
+}
