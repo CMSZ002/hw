@@ -3,7 +3,7 @@ title: 九年级下册
 ---
 
 ## 第六周周末作业
-<!--@include: ./G9S2/4.md-->
+<!--@include: ./G9S2/6.md-->
 
 ## 清明节作业
 <!--@include: ./G9S2/5.md-->
