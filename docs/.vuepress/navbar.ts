@@ -10,7 +10,7 @@ export default defineNavbarConfig([
   {
     text: '统计',
     icon: 'simple-icons:umami',
-    link: 'https://u.acmsz.top/share/9PRtp5s5D0AqW9Hz',
+    link: 'https://u.acmsz.top/share/kiednDXOwDm8er5B',
   },
   {
     text: '目录',
