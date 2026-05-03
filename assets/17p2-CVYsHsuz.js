@@ -1,0 +1,1 @@
+var e=`/assets/images/G9S1/17p1.webp`,t=`/assets/images/G9S1/17p2.webp`;export{e as n,t};

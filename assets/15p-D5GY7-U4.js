@@ -1,0 +1,1 @@
+var e=`/assets/images/G8S2/15p.webp`;export{e as t};
