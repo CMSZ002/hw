@@ -22,7 +22,7 @@ export default defineUserConfig({
   head: [
     // 配置站点图标
     ['link', { rel: 'icon', type: 'image/png', href: '/assets/images/favicon-32x32.png' }],
-    ['script', { defer: 'defer', src: '/assets/ok.js','data-website-id': '50438526-3c87-410d-8c6c-8bf7fc0ab6f3', 'data-host-url': 'https://u.acmsz.top' }]
+    ['script', { defer: 'defer', src: '/assets/ok.js','data-website-id': '50438526-3c87-410d-8c6c-8bf7fc0ab6f3', 'data-host-url': 'https://u.acmsz.top', 'data-domains': 'blog.acmsz.top' }]
   ],
 
   bundler: viteBundler(),
