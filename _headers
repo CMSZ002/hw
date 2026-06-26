@@ -1,0 +1,55 @@
+# Cloudflare Pages HTTP 响应头配置
+# 文档: https://developers.cloudflare.com/pages/configuration/headers/
+
+# ============================================================
+# 构建产物（带内容哈希的 JS/CSS/字体）— 长期不可变缓存
+# VuePress 构建输出中这些文件名包含哈希，内容永不改变
+# ============================================================
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# ============================================================
+# 静态资源 — 中期缓存
+# ============================================================
+/assets/images/*
+  Cache-Control: public, max-age=86400
+
+/assets/*.svg
+  Cache-Control: public, max-age=86400
+
+/assets/*.png
+  Cache-Control: public, max-age=86400
+
+/assets/*.ico
+  Cache-Control: public, max-age=86400
+
+# ============================================================
+# HTML 页面 — 不缓存，始终向源站验证
+# 确保内容更新后用户能立即看到
+# ============================================================
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/404.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ============================================================
+# 站点地图和 RSS — 短期缓存
+# ============================================================
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+# ============================================================
+# 根路径默认策略
+# ============================================================
+/
+  Cache-Control: public, max-age=0, must-revalidate
