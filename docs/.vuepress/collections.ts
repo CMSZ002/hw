@@ -26,6 +26,18 @@
  */
 import { defineCollection, defineCollections } from 'vuepress-theme-plume'
 
+const G7S2 = defineCollection({
+  // doc 类型，该类型带有侧边栏
+  type: 'doc',
+  // 文档集合所在目录，相对于 `docs`
+  dir: 'G7S2',
+  // `dir` 所指向的目录中的所有 markdown 文件，其 permalink 需要以 `linkPrefix` 配置作为前缀
+  // 如果 前缀不一致，则无法生成侧边栏。
+  // 所以请确保  markdown 文件的 permalink 都以 `linkPrefix` 开头
+  linkPrefix: '/G7S2/',
+  // 文档标题，它将用于在页面的面包屑导航中显示
+  title: '七年级下册',
+})
 
 const G8S1 = defineCollection({
   // doc 类型，该类型带有侧边栏
@@ -74,7 +86,7 @@ const G9S2 = defineCollection({
   // `dir` 所指向的目录中的所有 markdown 文件，其 permalink 需要以 `linkPrefix` 配置作为前缀
   // 如果 前缀不一致，则无法生成侧边栏。
   // 所以请确保  markdown 文件的 permalink 都以 `linkPrefix` 开头
-  linkPrefix: '/',
+  linkPrefix: '/G9S2/',
   // 文档标题，它将用于在页面的面包屑导航中显示
   title: '九年级下册',
 })
@@ -85,6 +97,7 @@ const G9S2 = defineCollection({
  * (demoDoc 为参考示例，如果不需要它，请删除)
  */
 export default defineCollections([
+  G7S2,
   G8S1,
   G8S2,
   G9S1,
