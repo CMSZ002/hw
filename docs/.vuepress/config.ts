@@ -153,11 +153,15 @@ export default defineUserConfig({
       comment: true,
       server: "https://artalk.acmsz.top",
       darkMode: "auto",
-      voteDown: true,
-      uaBadge: true,
-      imgLazyLoad: "native",
-      locale: "zh-CN"
-
+      useBackendConf: true,
+      // voteDown: true,
+      // uaBadge: true,
+      // imgLazyLoad: "native",
+      // locale: "zh-CN",
+      // gravatar: {
+      //   mirror: 'https://weavatar.com/avatar/',
+      //   params: 'sha256=1&d=mp&s=240&d=retro'
+      // }
     },
 
     /**
